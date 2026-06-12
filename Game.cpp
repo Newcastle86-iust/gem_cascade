@@ -156,7 +156,7 @@ void Game::play() {
         }
 
         showUI();
-        cout << "\nCommands: swap <r1> <c1> <r2> <c2> | bomb <r> <c> | rocket <row/col> <index> | hint | quit\n";
+        cout << "\nCommands: swap <r1> <c1> <r2> <c2> | bomb(120 points) <r> <c> | rocket(100 points) <row/col> <index> | hint(70 points) | quit\n";
         cout << "Enter command: ";
         
         string cmd;
