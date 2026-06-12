@@ -4,6 +4,7 @@
 #include <thread>
 #include <chrono>
 #include <iomanip>
+#include <conio.h>
 
 using namespace std;
 
@@ -160,7 +161,30 @@ void Game::play() {
         cout << "Enter command: ";
         
         string cmd;
-        cin >> cmd;
+        auto lastRefresh = chrono::steady_clock::now();
+
+        while (true)
+            {
+                if (_kbhit())
+                {
+                    cin >> cmd;
+                    break;
+                }
+
+                auto now = chrono::steady_clock::now();
+
+                if (chrono::duration_cast<chrono::seconds>(now - lastRefresh).count() >= 4)
+                {
+                    showUI();
+
+                    cout << "\nCommands: swap <r1> <c1> <r2> <c2> | bomb(120 points) <r> <c> | rocket(100 points) <row/col> <index> | hint(70 points) | quit\n";
+                    cout << "Enter command: ";
+
+                    lastRefresh = now;
+                }
+
+                this_thread::sleep_for(chrono::milliseconds(100));
+            }
 
         sessionLogs.clear();
 
